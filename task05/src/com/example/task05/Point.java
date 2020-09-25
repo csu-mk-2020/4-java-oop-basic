@@ -1,5 +1,7 @@
 package com.example.task05;
 
+import java.util.Objects;
+
 /**
  * Точка в двумерном пространстве
  */
@@ -20,6 +22,7 @@ public class Point {
     }
 
     public Point(Point point) {
+        Objects.requireNonNull(point);
         this.x = point.x;
         this.y = point.y;
 
@@ -68,6 +71,7 @@ public class Point {
      * @return расстояние от текущей точки до переданной
      */
     public double getLength(Point point) {
+        Objects.requireNonNull(point);
         return Math.sqrt(Math.pow(point.x - this.x, 2) + Math.pow(point.y - this.y, 2));
     }
 
