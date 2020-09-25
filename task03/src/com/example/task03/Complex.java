@@ -20,6 +20,11 @@ public class Complex {
         this.Im = Im;
     }
 
+    public Complex(Complex com) {
+        this.Re = com.Re;
+        this.Im = com.Im;
+    }
+
     double abs() {
         return Math.sqrt(Re * Re + Im * Im);
     }
