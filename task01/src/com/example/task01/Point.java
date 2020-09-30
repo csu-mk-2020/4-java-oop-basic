@@ -1,5 +1,7 @@
 package com.example.task01;
 
+import java.util.Objects;
+
 /**
  * Класс точки на плоскости
  */
@@ -22,10 +24,8 @@ public class Point {
         this.y = tmp * -1;
     }
 
-    public double distance(Point point) {
-        if (point == null) {
-            throw new IllegalArgumentException("Point must be not null");
-        }
+    public double distance(Point point) throws NullPointerException {
+        Objects.requireNonNull(point);
         double dx = Math.abs(this.x - point.x);
         double dy = Math.abs(this.y - point.y);
 
