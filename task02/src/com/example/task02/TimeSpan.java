@@ -1,11 +1,13 @@
 package com.example.task02;
 
+import java.util.Objects;
+
 public class TimeSpan {
     private int _seconds;
     private int _minutes;
     private int _hours;
 
-    private void normalize() {
+    private void normalize() throws IllegalStateException {
         if (_seconds < 0) {
             _minutes--;
             _seconds += 60;
@@ -15,7 +17,7 @@ public class TimeSpan {
             _minutes += 60;
         }
         if (_hours < 0) {
-
+            throw new IllegalStateException();
         }
         _minutes += _seconds / 60;
         _seconds %= 60;
@@ -48,7 +50,7 @@ public class TimeSpan {
         return _minutes;
     }
 
-    public void setMinutes(int minutes) {
+    public void setMinutes(int minutes) throws IllegalArgumentException {
         if (minutes < 0 || minutes > 60) {
             throw new IllegalArgumentException();
         }
@@ -59,27 +61,23 @@ public class TimeSpan {
         return _hours;
     }
 
-    public void setHours(int hours) {
+    public void setHours(int hours) throws IllegalArgumentException {
         if (hours < 0) {
             throw new IllegalArgumentException();
         }
         this._hours = hours;
     }
 
-    public void add(TimeSpan time) {
-        if (time == null) {
-            throw new IllegalArgumentException();
-        }
+    public void add(TimeSpan time) throws NullPointerException {
+        Objects.requireNonNull(time);
         _seconds += time._seconds;
         _minutes += time._minutes;
         _hours += time._hours;
         normalize();
     }
 
-    public void subtract(TimeSpan time) {
-        if (time == null) {
-            throw new IllegalArgumentException();
-        }
+    public void subtract(TimeSpan time) throws NullPointerException {
+        Objects.requireNonNull(time);
         _seconds -= time._seconds;
         _minutes -= time._minutes;
         _hours -= time._hours;
