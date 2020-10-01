@@ -1,9 +1,14 @@
 package com.example.task05;
 
+import java.util.Objects;
+
 /**
  * Точка в двумерном пространстве
  */
 public class Point {
+
+    private double _x;
+    private double _y;
 
     /**
      * Конструктор, инициализирующий координаты точки
@@ -12,7 +17,14 @@ public class Point {
      * @param y координата по оси ординат
      */
     public Point(double x, double y) {
-        throw new AssertionError();
+        _x = x;
+        _y = y;
+    }
+
+    public Point(Point p) throws NullPointerException {
+        Objects.requireNonNull(p);
+        _x = p._x;
+        _y = p._y;
     }
 
     /**
@@ -21,8 +33,7 @@ public class Point {
      * @return координату точки по оси X
      */
     public double getX() {
-        // TODO: реализовать
-        throw new AssertionError();
+        return _x;
     }
 
     /**
@@ -31,8 +42,7 @@ public class Point {
      * @return координату точки по оси Y
      */
     public double getY() {
-        // TODO: реализовать
-        throw new AssertionError();
+        return _y;
     }
 
     /**
@@ -41,8 +51,7 @@ public class Point {
      * @param x координата точки по оси X
      */
     public void setX(double x) {
-        // TODO: реализовать
-        throw new AssertionError();
+        _x = x;
     }
 
     /**
@@ -51,8 +60,7 @@ public class Point {
      * @param y координата точки по оси Y
      */
     public void setY(double y) {
-        // TODO: реализовать
-        throw new AssertionError();
+        _y = y;
     }
 
     /**
@@ -62,8 +70,11 @@ public class Point {
      * @return расстояние от текущей точки до переданной
      */
     public double getLength(Point point) {
-        // TODO: реализовать
-        throw new AssertionError();
+        Objects.requireNonNull(point);
+        double dx = Math.abs(this._x - point._x);
+        double dy = Math.abs(this._y - point._y);
+
+        return Math.hypot(dx, dy);
     }
 
 }
