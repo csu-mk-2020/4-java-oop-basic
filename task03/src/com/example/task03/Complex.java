@@ -2,7 +2,7 @@ package com.example.task03;
 
 /**
  * Класс комплексных чисел
- * */
+ */
 public class Complex {
     private double re;
     private double im;
@@ -12,28 +12,29 @@ public class Complex {
         this.im = im;
     }
 
-    public double getRe(){
+    public double getRe() {
         return re;
     }
-    public double getIm(){
+
+    public double getIm() {
         return im;
     }
 
-    public static Complex sum(Complex dst, Complex src){
+    public static Complex sum(Complex dst, Complex src) {
         if (dst == null || src == null) {
             throw new IllegalArgumentException("аргумент пуст");
         }
-        return new Complex(src.getRe()+dst.getRe(),src.getIm()+dst.getIm());
+        return new Complex(src.getRe() + dst.getRe(), src.getIm() + dst.getIm());
     }
 
-    public static Complex multiply(Complex dst, Complex src){
-        if (dst == null || src == null){
+    public static Complex multiply(Complex dst, Complex src) {
+        if (dst == null || src == null) {
             throw new IllegalArgumentException("аргумент пуст");
         }
         return new Complex(dst.getRe() * src.getRe() - dst.getIm() * src.getIm(), dst.getRe() * src.getIm() + dst.getIm() * src.getRe());
     }
 
-    public String toString(){
+    public String toString() {
         return String.format("%.2f+%.2fi", re, im);
     }
 }
