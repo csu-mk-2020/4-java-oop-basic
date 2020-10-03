@@ -1,46 +1,29 @@
 package com.example.task03;
 
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
-import org.omg.CORBA.IMP_LIMIT;
-
+import java.util.Objects;
 public class Complex {
-    double Re;
-    double Im;
 
-    Complex() {
+    double re;
+    double im;
+
+    Complex(double re, double im) {
+        this.re = re;
+        this.im = im;
     }
 
-    Complex(double r) {
-        Re = r;
-        Im = 0;
+    Complex sum(Complex rhs) throws NullPointerException {
+        Objects.requireNonNull(rhs);
+        return new Complex(this.re + rhs.re, this.im + rhs.im);
     }
 
-    Complex(double Re, double Im) {
-        this.Re = Re;
-        this.Im = Im;
-    }
-
-    public Complex(Complex com) {
-        this.Re = com.Re;
-        this.Im = com.Im;
-    }
-
-    double abs() {
-        return Math.sqrt(Re * Re + Im * Im);
-    }
-
-    Complex sum(Complex com) {
-
-        return new Complex(this.Re + com.Re, this.Im + com.Im);
-    }
-
-    Complex mul(Complex com) {
-        return new Complex(this.Re * com.Re - this.Im * com.Im, this.Re * com.Im + this.Im * com.Re);
+    Complex mult(Complex rhs) throws NullPointerException {
+        Objects.requireNonNull(rhs);
+        return new Complex(
+                this.re * rhs.re - this.im * rhs.im,
+                this.im * rhs.re + this.re * rhs.im);
     }
 
     public String toString() {
-
-        return String.format("(%f %fi)", this.Re, this.Im);
+        return String.format("%f %fi", this.re, this.im);
     }
-
 }
