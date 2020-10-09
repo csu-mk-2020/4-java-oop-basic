@@ -14,6 +14,7 @@ public class PolygonalLine {
      * @param points массив точек, которыми нужно проинициализировать ломаную линию
      */
     public void setPoints(Point[] points) {
+        this.points.clear();
         if (points != null) {
             for (Point p : points) {
                 this.points.add(new Point(p.getX(), p.getY()));
