@@ -1,14 +1,18 @@
 package com.example.task04;
 
 public class Line {
-    private Point p1;
-    private Point p2;
+    final private Point p1;
+    final private Point p2;
 
-    Line(Point p1, Point p2) {
-        if (p1 != null && p2 != null) {
-            this.p1 = p1;
-            this.p2 = p2;
-        } else throw new IllegalArgumentException("аргумент пуст");
+    public Line(Point p1, Point p2) {
+        if (p1 == null){
+            throw new IllegalArgumentException("первый аргумент пуст");
+        }
+        if (p2 == null){
+            throw new IllegalArgumentException("второй аргумент пуст");
+        }
+        this.p1 = p1;
+        this.p2 = p2;
     }
 
     public Point getP1() {
