@@ -5,38 +5,29 @@ public class TimeSpan {
     private int minute;
     private int second;
 
-    TimeSpan(int hrs, int min, int sec) {
-        if (hrs >= 0 || (min >= 0 && min < 60) || (sec >= 0 && sec < 60)) {
-            hour = hrs;
-            minute = min + sec / 60;
-            second = sec % 60;
-        } else throw new IllegalArgumentException("аргумент вне диапазона [0,59]");
+    public TimeSpan(int hrs, int min, int sec) {
+        if (hrs < 0) {
+            throw new IllegalArgumentException("часы не могут быть отрицательными");
+        }
+        if (min < 0 || min >= 60) {
+            throw new IllegalArgumentException("минуты вне диапазона [0,60]");
+        }
+        if (sec < 0 || sec >= 60) {
+            throw new IllegalArgumentException("секунды вне диапазона [0,60]");
+        }
+        this.hour = hrs;
+        this.minute = min;
+        this.second = sec;
     }
 
-    private void normalize() {
-        if (hour >= 0) {
-            if (second > 59) {
-                minute += second / 60;
-                second %= 60;
-            }
-            if (minute > 59) {
-                hour += minute / 60;
-                minute %= 60;
-            }
-            if (second < 0) {
-                minute -= (second / 60 + 1);
-                second %= 60;
-                second += 60;
-            }
-            if (minute < 0) {
-                hour -= (minute / 60 + 1);
-                minute %= 60;
-                minute += 60;
-            }
-            if (hour < 0) {
-                throw new ArithmeticException("часы не могут быть отрицательными");
-            }
-        } else throw new ArithmeticException("часы не могу быть отрицательными");
+    private int inSecondsTimeSpan() {
+        return (this.hour * 60 * 60) + (this.minute * 60) + this.second;
+    }
+
+    private void normalize(int src) {
+        this.second = src % 60;
+        this.minute = src / 60 % 60;
+        this.hour = src / (60 * 60);
     }
 
     public int getHour() {
@@ -53,46 +44,42 @@ public class TimeSpan {
 
     public void setHour(int src) {
         if (src < 0) {
-            throw new IllegalArgumentException("аргумент не может быть отрицательным");
+            throw new IllegalArgumentException("часы часы не могут быть отрицательными");
         }
         hour = src;
     }
 
     public void setMinute(int src) {
-        if (src < 0) {
-            throw new IllegalArgumentException("аргумент не может быть отрицательным");
+        if (src < 0 || src >= 60) {
+            throw new IllegalArgumentException("минуты вне диапазона [0,60]");
         }
         minute = src;
-        normalize();
     }
 
     public void setSecond(int src) {
-        if (src < 0) {
-            throw new IllegalArgumentException("аргумент не может быть отрицательным");
+        if (src < 0 || src >= 60) {
+            throw new IllegalArgumentException("секунды вне диапазона [0,60]");
         }
         second = src;
-        normalize();
     }
 
-    void add(TimeSpan time) {
+    public void add(TimeSpan time) {
         if (time == null) {
             throw new NullPointerException("аргумент пуст");
         }
-        hour += time.getHour();
-        minute += time.getMinute();
-        second += time.getSecond();
-        normalize();
+        normalize(this.inSecondsTimeSpan() + time.inSecondsTimeSpan());
     }
 
-    void subtract(TimeSpan time) {
+    public void subtract(TimeSpan time) {
         if (time == null) {
             throw new NullPointerException("аргумент пуст");
         }
-        hour -= time.getHour();
-        minute -= time.getMinute();
-        second -= time.getSecond();
-        normalize();
+        if (this.inSecondsTimeSpan() < time.inSecondsTimeSpan()) {
+            throw new IllegalArgumentException("аргумент велик");
+        }
+        normalize(this.inSecondsTimeSpan() - time.inSecondsTimeSpan());
     }
+
 
     public String toString() {
         return String.format("[%d:%d:%d]", hour, minute, second);
