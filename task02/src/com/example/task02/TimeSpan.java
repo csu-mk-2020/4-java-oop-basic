@@ -16,23 +16,32 @@ public class TimeSpan {
             _hours--;
             _minutes += 60;
         }
-        if (_hours < 0) {
-            throw new IllegalStateException();
-        }
         _minutes += _seconds / 60;
         _seconds %= 60;
         _hours += _minutes / 60;
         _minutes %= 60;
     }
 
+    private void checkSubtract(TimeSpan time) throws IllegalStateException {
+        try {
+            TimeSpan tmp = new TimeSpan(
+                    _hours - time._hours,
+                    _minutes - time._minutes,
+                    _seconds - time._seconds);
+        }
+        catch(IllegalArgumentException ex) {
+            throw new IllegalStateException();
+        }
+    }
+
     public TimeSpan() {
         this(0,0,0);
     }
 
-    public TimeSpan(int seconds, int minutes, int hours) {
-        setSeconds(seconds);
-        setMinutes(minutes);
+    public TimeSpan(int hours, int minutes, int seconds) {
         setHours(hours);
+        setMinutes(minutes);
+        setSeconds(seconds);
     }
 
     public int getSeconds() {
@@ -43,7 +52,8 @@ public class TimeSpan {
         if (seconds < 0 || seconds > 60) {
             throw new IllegalArgumentException();
         }
-        this._seconds = seconds;
+        _seconds = seconds;
+        normalize();
     }
 
     public int getMinutes() {
@@ -54,7 +64,8 @@ public class TimeSpan {
         if (minutes < 0 || minutes > 60) {
             throw new IllegalArgumentException();
         }
-        this._minutes = minutes;
+        _minutes = minutes;
+        normalize();
     }
 
     public int getHours() {
@@ -65,7 +76,7 @@ public class TimeSpan {
         if (hours < 0) {
             throw new IllegalArgumentException();
         }
-        this._hours = hours;
+        _hours = hours;
     }
 
     public void add(TimeSpan time) throws NullPointerException {
@@ -78,6 +89,7 @@ public class TimeSpan {
 
     public void subtract(TimeSpan time) throws NullPointerException {
         Objects.requireNonNull(time);
+        checkSubtract(time);
         _seconds -= time._seconds;
         _minutes -= time._minutes;
         _hours -= time._hours;
