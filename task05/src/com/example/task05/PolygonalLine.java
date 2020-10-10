@@ -19,6 +19,7 @@ public class PolygonalLine {
      */
     public void setPoints(Point[] points) throws NullPointerException {
         Objects.requireNonNull(points);
+        _points.clear();
         for(int i = 0; i < points.length; ++i) {
             addPoint(points[i]);
         }
