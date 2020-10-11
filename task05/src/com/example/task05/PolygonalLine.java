@@ -17,8 +17,8 @@ public class PolygonalLine {
      */
     public void setPoints(Point[] points) {
         Objects.requireNonNull(points);
+        this.points.clear();
         for (Point p : points) {
-            this.points.clear();
             this.points.add(new Point(p.getX(), p.getY()));
         }
     }
