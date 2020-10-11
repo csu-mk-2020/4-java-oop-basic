@@ -6,12 +6,12 @@ public class ComplexNumber {
     private double real;
     private double image;
 
-    ComplexNumber() {
+    public ComplexNumber() {
         this.real = 0;
         this.image = 0;
     }
 
-    ComplexNumber(double real, double image) {
+    public ComplexNumber(double real, double image) {
         this.real = real;
         this.image = image;
     }
@@ -32,7 +32,7 @@ public class ComplexNumber {
         this.image = image;
     }
 
-    ComplexNumber add(ComplexNumber rhs) throws NullPointerException {
+    public ComplexNumber add(ComplexNumber rhs) throws NullPointerException {
         Objects.requireNonNull(rhs);
         return new ComplexNumber(
                 this.real + rhs.real,
@@ -40,7 +40,7 @@ public class ComplexNumber {
         );
     }
 
-    ComplexNumber mult(ComplexNumber rhs) throws NullPointerException {
+    public ComplexNumber mult(ComplexNumber rhs) throws NullPointerException {
         Objects.requireNonNull(rhs);
         return new ComplexNumber(
                 this.real * rhs.real - this.image * rhs.image,
