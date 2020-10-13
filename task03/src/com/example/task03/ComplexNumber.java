@@ -1,32 +1,28 @@
 package com.example.task03;
 
+import java.util.Objects;
+
 public class ComplexNumber {
     double re;
     double im;
 
-    ComplexNumber(double re, double im) {
+    public ComplexNumber(double re, double im) {
         this.re = re;
         this.im = im;
     }
 
-    ComplexNumber add(ComplexNumber rhs) {
-        if (rhs == null) {
-            throw new NullPointerException("");
-        }
+    public ComplexNumber add(ComplexNumber rhs) {
+        Objects.requireNonNull(rhs);
         return new ComplexNumber(this.re + rhs.re, this.im + rhs.im);
     }
 
-    ComplexNumber sub(ComplexNumber rhs) {
-        if (rhs == null) {
-            throw new NullPointerException("");
-        }
+    public ComplexNumber sub(ComplexNumber rhs) {
+        Objects.requireNonNull(rhs);
         return new ComplexNumber(this.re - rhs.re, this.im - rhs.im);
     }
 
-    ComplexNumber mult(ComplexNumber rhs) {
-        if (rhs == null) {
-            throw new NullPointerException("");
-        }
+    public ComplexNumber mult(ComplexNumber rhs) {
+        Objects.requireNonNull(rhs);
         return new ComplexNumber(this.re * rhs.re - this.im * rhs.im, this.im * rhs.re + this.re * rhs.im);
     }
 
