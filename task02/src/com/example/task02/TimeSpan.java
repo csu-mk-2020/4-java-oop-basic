@@ -1,9 +1,9 @@
 package com.example.task02;
 
 public class TimeSpan {
-    private int hrs;
+    private int hours;
     private int minutes;
-    private int secs;
+    private int seconds;
     private int timestamp;
 
     public TimeSpan(int hours, int minutes, int seconds) {
@@ -17,49 +17,52 @@ public class TimeSpan {
             throw new IllegalArgumentException("Секунды могут быть только [0-59]");
         }
 
-        this.hrs = hours;
+        this.hours = hours;
         this.minutes = minutes;
-        this.secs = seconds;
-        this.timestamp = this.hrs * 60 * 60 + this.minutes * 60 + this.secs;
+        this.seconds = seconds;
+        this.timestamp = this.hours * 60 * 60 + this.minutes * 60 + this.seconds;
     }
 
-    void setHrs(int hrs) {
-        if (hrs < 0) {
+    void setHours(int hours) {
+        if (hours > 24 || hours < 0) {
             throw new IllegalArgumentException("Часы должны быть неотрицательными");
         }
-        this.hrs = hrs;
+        this.hours = hours;
+        this.timestamp = this.hours * 60 * 60 + this.minutes * 60 + this.seconds;
     }
 
-    int getHrs() {
-        return this.hrs;
+    int getHours() {
+        return this.hours;
     }
 
-    void setMinutes(int mnts) {
-        if (mnts < 0) {
+    void setMinutes(int minutes) {
+        if (minutes > 59 || minutes < 0) {
             throw new IllegalArgumentException("Часы должны быть неотрицательными");
         }
-        this.minutes = mnts;
+        this.minutes = minutes;
+        this.timestamp = this.hours * 60 * 60 + this.minutes * 60 + this.seconds;
     }
 
     int getMinutes() {
         return this.minutes;
     }
 
-    void setSecs(int secs) {
-        if (secs < 0) {
+    void setSeconds(int seconds) {
+        if (seconds > 59 || seconds < 0) {
             throw new IllegalArgumentException("Часы должны быть неотрицательными");
         }
-        this.secs = secs;
+        this.seconds = seconds;
+        this.timestamp = this.hours * 60 * 60 + this.minutes * 60 + this.seconds;
     }
 
-    int getSecs() {
-        return this.secs;
+    int getSeconds() {
+        return this.seconds;
     }
 
     private void timestampToTime() {
-        this.secs = this.timestamp % 60;
+        this.seconds = this.timestamp % 60;
         this.minutes = this.timestamp / 60 % 60;
-        this.hrs = this.timestamp / 3600 % 3600;
+        this.hours = this.timestamp / 3600 % 3600;
     }
 
     void add(TimeSpan timeSpan) {
@@ -73,6 +76,6 @@ public class TimeSpan {
     }
 
     public String toString() {
-        return String.format("%d:%d:%d", this.hrs, this.minutes, this.secs);
+        return String.format("%d:%d:%d", this.hours, this.minutes, this.seconds);
     }
 }
