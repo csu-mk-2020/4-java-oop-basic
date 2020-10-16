@@ -3,34 +3,38 @@ package com.example.task02;
 import java.util.Objects;
 
 public class TimeSpan {
-    private int _seconds;
-    private int _minutes;
-    private int _hours;
+    private int seconds;
+    private int minutes;
+    private int hours;
 
     private void normalize() throws IllegalStateException {
-        if (_seconds < 0) {
-            _minutes--;
-            _seconds += 60;
+        if (seconds < 0) {
+            minutes--;
+            seconds += 60;
         }
-        if (_minutes < 0) {
-            _hours--;
-            _minutes += 60;
+        if (minutes < 0) {
+            hours--;
+            minutes += 60;
         }
-        _minutes += _seconds / 60;
-        _seconds %= 60;
-        _hours += _minutes / 60;
-        _minutes %= 60;
+        if (hours < 0) {
+            throw new IllegalStateException("Total seconds cannot be below zero");
+        }
+        minutes += seconds / 60;
+        seconds %= 60;
+        hours += minutes / 60;
+        minutes %= 60;
     }
 
     private void checkSubtract(TimeSpan time) throws IllegalStateException {
         try {
-            TimeSpan tmp = new TimeSpan(
-                    _hours - time._hours,
-                    _minutes - time._minutes,
-                    _seconds - time._seconds);
+            TimeSpan tmp = new TimeSpan(hours, minutes, seconds);
+            tmp.hours -= time.hours;
+            tmp.minutes -= time.minutes;
+            tmp.seconds -= time.seconds;
+            tmp.normalize();
         }
-        catch(IllegalArgumentException ex) {
-            throw new IllegalStateException();
+        catch(IllegalStateException ex) {
+            throw new IllegalStateException("Cannot subtract if lhs < rhs");
         }
     }
 
@@ -45,59 +49,59 @@ public class TimeSpan {
     }
 
     public int getSeconds() {
-        return _seconds;
+        return seconds;
     }
 
     public void setSeconds(int seconds) {
         if (seconds < 0 || seconds > 60) {
             throw new IllegalArgumentException();
         }
-        _seconds = seconds;
+        this.seconds = seconds;
         normalize();
     }
 
     public int getMinutes() {
-        return _minutes;
+        return minutes;
     }
 
     public void setMinutes(int minutes) throws IllegalArgumentException {
         if (minutes < 0 || minutes > 60) {
             throw new IllegalArgumentException();
         }
-        _minutes = minutes;
+        this.minutes = minutes;
         normalize();
     }
 
     public int getHours() {
-        return _hours;
+        return hours;
     }
 
     public void setHours(int hours) throws IllegalArgumentException {
         if (hours < 0) {
             throw new IllegalArgumentException();
         }
-        _hours = hours;
+        this.hours = hours;
     }
 
     public void add(TimeSpan time) throws NullPointerException {
         Objects.requireNonNull(time);
-        _seconds += time._seconds;
-        _minutes += time._minutes;
-        _hours += time._hours;
+        seconds += time.seconds;
+        minutes += time.minutes;
+        hours += time.hours;
         normalize();
     }
 
     public void subtract(TimeSpan time) throws NullPointerException {
         Objects.requireNonNull(time);
         checkSubtract(time);
-        _seconds -= time._seconds;
-        _minutes -= time._minutes;
-        _hours -= time._hours;
+        seconds -= time.seconds;
+        minutes -= time.minutes;
+        hours -= time.hours;
         normalize();
     }
 
     @Override
     public String toString() {
-        return String.format("%d:%d:%d", _hours, _minutes, _seconds);
+        return String.format("%d:%d:%d", hours, minutes, seconds);
     }
 }
