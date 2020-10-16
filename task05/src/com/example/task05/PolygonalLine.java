@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public class PolygonalLine {
 
-    private List<Point> _points = new ArrayList<Point>();
+    private List<Point> points = new ArrayList<Point>();
 
     /**
      * Устанавливает точки ломаной линии
@@ -19,7 +19,7 @@ public class PolygonalLine {
      */
     public void setPoints(Point[] points) throws NullPointerException {
         Objects.requireNonNull(points);
-        _points.clear();
+        this.points.clear();
         for(int i = 0; i < points.length; ++i) {
             addPoint(points[i]);
         }
@@ -32,7 +32,7 @@ public class PolygonalLine {
      */
     public void addPoint(Point point) throws NullPointerException {
         Objects.requireNonNull(point);
-        _points.add(new Point(point));
+        points.add(new Point(point));
     }
 
     /**
@@ -42,7 +42,7 @@ public class PolygonalLine {
      * @param y координата по оси ординат
      */
     public void addPoint(double x, double y) {
-        _points.add(new Point(x,y));
+        points.add(new Point(x,y));
     }
 
     /**
@@ -52,8 +52,8 @@ public class PolygonalLine {
      */
     public double getLength() {
         double length = 0;
-        for(int i = 0; i < _points.size() - 1; ++i) {
-            length += _points.get(i).getLength(_points.get(i + 1));
+        for(int i = 0; i < points.size() - 1; ++i) {
+            length += points.get(i).getLength(points.get(i + 1));
         }
         return length;
     }

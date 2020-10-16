@@ -7,8 +7,8 @@ import java.util.Objects;
  */
 public class Point {
 
-    private double _x;
-    private double _y;
+    private double x;
+    private double y;
 
     /**
      * Конструктор, инициализирующий координаты точки
@@ -17,14 +17,14 @@ public class Point {
      * @param y координата по оси ординат
      */
     public Point(double x, double y) {
-        _x = x;
-        _y = y;
+        this.x = x;
+        this.y = y;
     }
 
     public Point(Point p) throws NullPointerException {
         Objects.requireNonNull(p);
-        _x = p._x;
-        _y = p._y;
+        x = p.x;
+        y = p.y;
     }
 
     /**
@@ -33,7 +33,7 @@ public class Point {
      * @return координату точки по оси X
      */
     public double getX() {
-        return _x;
+        return x;
     }
 
     /**
@@ -42,7 +42,7 @@ public class Point {
      * @return координату точки по оси Y
      */
     public double getY() {
-        return _y;
+        return y;
     }
 
     /**
@@ -51,7 +51,7 @@ public class Point {
      * @param x координата точки по оси X
      */
     public void setX(double x) {
-        _x = x;
+        x = x;
     }
 
     /**
@@ -60,7 +60,7 @@ public class Point {
      * @param y координата точки по оси Y
      */
     public void setY(double y) {
-        _y = y;
+        y = y;
     }
 
     /**
@@ -71,8 +71,8 @@ public class Point {
      */
     public double getLength(Point point) {
         Objects.requireNonNull(point);
-        double dx = Math.abs(this._x - point._x);
-        double dy = Math.abs(this._y - point._y);
+        double dx = Math.abs(this.x - point.x);
+        double dy = Math.abs(this.y - point.y);
 
         return Math.hypot(dx, dy);
     }
