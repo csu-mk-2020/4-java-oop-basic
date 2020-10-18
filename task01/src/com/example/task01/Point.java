@@ -11,4 +11,24 @@ public class Point {
         String pointToString = String.format("(%d, %d)", x, y);
         System.out.println(pointToString);
     }
+
+    public Point(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
+    void flip(){
+        int tmp = -this.y;
+        this.y = -this.x;
+        this.x = tmp;
+    }
+
+    double distance(Point point){
+        if(point == null) throw new IllegalArgumentException("point = null");
+        return Math.sqrt(Math.pow(this.x - point.x, 2) + Math.pow(this.y - point.y, 2));
+    }
+
+    public String toString(){
+        return String.format("(%d, %d)", x, y);
+    }
 }
