@@ -4,25 +4,25 @@ import java.util.Objects;
 
 public class Complex {
 
-    double re;
-    double im;
+    private final double re;
+    private final double im;
 
-    Complex(double re, double im) {
+    public Complex(double re, double im) {
         this.re = re;
         this.im = im;
     }
 
-    Complex add(Complex rhs) throws NullPointerException {
+    public Complex add(Complex rhs) throws NullPointerException {
         Objects.requireNonNull(rhs);
         return new Complex(this.re + rhs.re, this.im + rhs.im);
     }
 
-    Complex sub(Complex rhs) throws NullPointerException {
+    public Complex sub(Complex rhs) throws NullPointerException {
         Objects.requireNonNull(rhs);
         return new Complex(this.re - rhs.re, this.im - rhs.im);
     }
 
-    Complex mult(Complex rhs) throws NullPointerException {
+    public Complex mult(Complex rhs) throws NullPointerException {
         Objects.requireNonNull(rhs);
         return new Complex(
                 this.re * rhs.re - this.im * rhs.im,
