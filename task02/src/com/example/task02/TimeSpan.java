@@ -2,12 +2,21 @@ package com.example.task02;
 
 import java.util.Objects;
 
+/**
+ * Временной интервал
+ */
 public class TimeSpan {
     private int hours;
     private int minutes;
     private int seconds;
 
-    TimeSpan(int hours, int minutes, int seconds) {
+    /**
+     * @param hours часы >= 0
+     * @param minutes минуты в диапазоне 0-59
+     * @param seconds секунды в диапазоне 0-59
+     * @throws IllegalArgumentException если часы < 0 или секунды или минуты не лежат в диапазоне 0-59
+     */
+    public TimeSpan(int hours, int minutes, int seconds) throws IllegalArgumentException {
         if (seconds >= 60 || seconds < 0) {
             throw new IllegalArgumentException("Секунды должны быть в диапазоне 0-59");
         }
@@ -39,7 +48,11 @@ public class TimeSpan {
         return this.hours;
     }
 
-    public void setHours(int hours) {
+    /**
+     * @param hours часы >= 0
+     * @throws IllegalArgumentException если часы < 0
+     */
+    public void setHours(int hours) throws IllegalArgumentException {
         if (hours < 0) {
             throw new IllegalArgumentException("Часы должны быть неотрицательными");
         }
@@ -50,6 +63,10 @@ public class TimeSpan {
         return this.minutes;
     }
 
+    /**
+     * @param minutes в диапазоне 0-59
+     * @throws IllegalArgumentException если минуты не лежат в диапазоне 0-59
+     */
     public void setMinutes(int minutes) {
         if (minutes >= 60 || minutes < 0) {
             throw new IllegalArgumentException("Минуты должны быть в диапазоне 0-59");
@@ -61,6 +78,10 @@ public class TimeSpan {
         return this.seconds;
     }
 
+    /**
+     * @param seconds в диапазоне 0-59
+     * @throws IllegalArgumentException если минуты не лежат в диапазоне 0-59
+     */
     public void setSeconds(int seconds) {
         if (seconds >= 60 || seconds < 0) {
             throw new IllegalArgumentException("Секунды должны быть в диапазоне 0-59");
@@ -68,14 +89,28 @@ public class TimeSpan {
         this.seconds = seconds;
     }
 
-    void add(TimeSpan time) throws NullPointerException {
+
+    /**
+     * @param time временной интервал
+     * @throws NullPointerException если time == null
+     */
+    public void add(TimeSpan time) throws NullPointerException {
         Objects.requireNonNull(time);
         normalize(this.denormalize() + time.denormalize());
     }
 
-    void subtract(TimeSpan time) throws NullPointerException {
+    /**
+     * @param time временной интервал
+     * @throws NullPointerException если time == null
+     * @throws IllegalStateException если временной интервал получается отрицательным
+     */
+    public void subtract(TimeSpan time) throws NullPointerException, IllegalStateException {
         Objects.requireNonNull(time);
-        normalize(this.denormalize() - time.denormalize());
+        int result = this.denormalize() - time.denormalize();
+        if (result < 0){
+            throw new IllegalStateException("Получившийся временной интервал не может быть отрицательным");
+        }
+        normalize(result);
     }
 
     public String toString() {
