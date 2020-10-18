@@ -14,9 +14,14 @@ public class PolygonalLine {
      * Устанавливает точки ломаной линии
      *
      * @param points массив точек, которыми нужно проинициализировать ломаную линию
+     * @throws NullPointerException если points == null или какая-либо из точек == null
      */
-    public void setPoints(Point[] points) {
+    public void setPoints(Point[] points) throws NullPointerException {
         Objects.requireNonNull(points);
+        for (Point point: points) {
+            Objects.requireNonNull(point);
+        }
+        this.points.clear();
         for (Point point : points) {
             this.points.add(new Point(point));
         }
