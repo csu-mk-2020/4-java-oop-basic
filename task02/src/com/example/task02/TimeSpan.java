@@ -23,7 +23,7 @@ public class TimeSpan {
         this.timestamp = this.hours * 60 * 60 + this.minutes * 60 + this.seconds;
     }
 
-    void setHours(int hours) {
+    public void setHours(int hours) {
         if (hours > 24 || hours < 0) {
             throw new IllegalArgumentException("Часы должны быть неотрицательными");
         }
@@ -31,11 +31,11 @@ public class TimeSpan {
         this.timestamp = this.hours * 60 * 60 + this.minutes * 60 + this.seconds;
     }
 
-    int getHours() {
+    public int getHours() {
         return this.hours;
     }
 
-    void setMinutes(int minutes) {
+    public void setMinutes(int minutes) {
         if (minutes > 59 || minutes < 0) {
             throw new IllegalArgumentException("Часы должны быть неотрицательными");
         }
@@ -43,11 +43,11 @@ public class TimeSpan {
         this.timestamp = this.hours * 60 * 60 + this.minutes * 60 + this.seconds;
     }
 
-    int getMinutes() {
+    public int getMinutes() {
         return this.minutes;
     }
 
-    void setSeconds(int seconds) {
+    public void setSeconds(int seconds) {
         if (seconds > 59 || seconds < 0) {
             throw new IllegalArgumentException("Часы должны быть неотрицательными");
         }
@@ -55,7 +55,7 @@ public class TimeSpan {
         this.timestamp = this.hours * 60 * 60 + this.minutes * 60 + this.seconds;
     }
 
-    int getSeconds() {
+    public int getSeconds() {
         return this.seconds;
     }
 
@@ -65,12 +65,12 @@ public class TimeSpan {
         this.hours = this.timestamp / 3600 % 3600;
     }
 
-    void add(TimeSpan timeSpan) {
-        this.timestamp = this.timestamp + timeSpan.timestamp;
+    public void add(TimeSpan timeSpan) {
+        this.timestamp = (this.timestamp + timeSpan.timestamp) % 60 * 60 * 24;
         timestampToTime();
     }
 
-    void subtract(TimeSpan timeSpan) {
+    public void subtract(TimeSpan timeSpan) {
         this.timestamp = this.timestamp - timeSpan.timestamp;
         timestampToTime();
     }
