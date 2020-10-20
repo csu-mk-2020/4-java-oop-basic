@@ -3,12 +3,20 @@ package com.example.task03;
 import java.util.Objects;
 
 public class ComplexNumber {
-    double re;
-    double im;
+    private double re;
+    private double im;
 
     public ComplexNumber(double re, double im) {
         this.re = re;
         this.im = im;
+    }
+
+    public double getIm() {
+        return im;
+    }
+
+    public double getRe() {
+        return re;
     }
 
     public ComplexNumber add(ComplexNumber rhs) {
