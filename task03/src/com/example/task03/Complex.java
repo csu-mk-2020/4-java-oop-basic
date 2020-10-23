@@ -1,8 +1,10 @@
 package com.example.task03;
 
+import java.util.Objects;
+
 public class Complex {
 
-    double a, b;
+    private double a, b;
 
     public Complex(double a, double b){
         this.a = a;
@@ -15,14 +17,17 @@ public class Complex {
 
 
     public Complex add(Complex complex){
+        Objects.requireNonNull(complex);
         return new Complex(a+complex.a, b+complex.b);
     }
 
     public Complex sub(Complex complex){
+        Objects.requireNonNull(complex);
         return new Complex(a-complex.a, b-complex.b);
     }
 
     public Complex mult(Complex complex){
+        Objects.requireNonNull(complex);
         return new Complex(a*complex.a+complex.b*b*-1, a*complex.b+b*complex.a);
     }
 
