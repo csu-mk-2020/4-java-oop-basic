@@ -7,17 +7,17 @@ public class Complex {
     final double re;
     final double im;
 
-    Complex(double re, double im) {
+    public Complex(double re, double im) {
         this.re = re;
         this.im = im;
     }
 
-    Complex sum(Complex rhs) throws NullPointerException {
+    public Complex sum(Complex rhs) throws NullPointerException {
         Objects.requireNonNull(rhs);
         return new Complex(this.re + rhs.re, this.im + rhs.im);
     }
 
-    Complex mult(Complex rhs) throws NullPointerException {
+    public Complex mult(Complex rhs) throws NullPointerException {
         Objects.requireNonNull(rhs);
         return new Complex(
                 this.re * rhs.re - this.im * rhs.im,
