@@ -24,6 +24,9 @@ public class Point {
     }
 
     public double distance(Point point){
+        if (point == null) {
+            throw new IllegalArgumentException("point не может быть null");
+        }
         return Math.sqrt(Math.pow(x- point.x,2)+Math.pow(y- point.y,2));
     }
 
