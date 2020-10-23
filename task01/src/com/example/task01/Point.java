@@ -14,7 +14,7 @@ public class Point {
      * @param x - координата точки по оси X
      * @param y - координата точки по оси Y
      */
-   Point(int x, int y){
+   public Point(int x, int y){
         this.x = x;
         this.y = y;
    }
