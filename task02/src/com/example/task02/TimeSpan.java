@@ -51,21 +51,21 @@ public class TimeSpan {
      * Нормализация
      */
     private void normalizeTime() throws IllegalStateException{
-        if(seconds < 0){
-            --minutes;
-            seconds += 60;
+        if(this.seconds < 0){
+            --this.minutes;
+            this.seconds += 60;
         }
-        if(minutes < 0){
-            --hours;
-            minutes += 60;
+        if(this.minutes < 0){
+            --this.hours;
+            this.minutes += 60;
         }
-        if(hours < 0){
+        if(this.hours < 0){
             throw new IllegalStateException("Exception: Hours < 0");
         }
-        minutes += seconds / 60;
-        hours += minutes / 60;
-        seconds %= 60;
-        minutes %= 60;
+        this.minutes += this.seconds / 60;
+        this.hours += this.minutes / 60;
+        this.seconds %= 60;
+        this.minutes %= 60;
     }
 
     /**
@@ -84,16 +84,20 @@ public class TimeSpan {
 
     public void subtract(TimeSpan time) throws NullPointerException {
         Objects.requireNonNull(time, "Except: object is null");
+        TimeSpan tmpTime = new TimeSpan(this.hours, this.minutes, this.seconds);
         try{
-            this.seconds -= time.seconds;
-            this.minutes -= time.minutes;
-            this.hours   -= time.hours;
+            tmpTime.seconds -= time.seconds;
+            tmpTime.minutes -= time.minutes;
+            tmpTime.hours   -= time.hours;
 
-            normalizeTime();
+            tmpTime.normalizeTime();
         }
         catch (IllegalStateException ecxeption){
             throw new IllegalStateException("Can't subtract because lhs < rhs");
         }
+        this.setHours(tmpTime.hours);
+        this.setMinutes(tmpTime.minutes);
+        this.setSeconds(tmpTime.seconds);
     }
 
     /**
