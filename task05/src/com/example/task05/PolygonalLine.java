@@ -18,9 +18,16 @@ public class PolygonalLine {
         if (points != null) {
             this.points.clear();
             for (Point p : points) {
-                this.points.add(new Point(p.getX(), p.getY()));
+                if (p != null) {
+                    this.points.add(new Point(p.getX(), p.getY()));
+                } else {
+                    this.points.clear();
+                    throw new IllegalArgumentException("пустой экземпляр внутри ломанной линии");
+                }
             }
-        } else throw new IllegalArgumentException("аргумент пуст");
+        } else {
+            throw new IllegalArgumentException("аргумент пуст");
+        }
     }
 
     /**
