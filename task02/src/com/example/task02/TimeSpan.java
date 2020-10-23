@@ -5,7 +5,10 @@ public class TimeSpan {
     private int minutes;
     private int seconds;
 
-    public TimeSpan(int hours, int minutes, int seconds){
+    public TimeSpan(int hours, int minutes, int seconds) throws IllegalStateException {
+        if((hours < 0 || hours > 60) || (minutes < 0 || minutes > 60) || (seconds < 0 || seconds > 60)) {
+            throw new IllegalStateException("Exception: invalid hours value");
+        }
         this.hours   = hours;
         this.minutes = minutes;
         this.seconds = seconds;
@@ -72,9 +75,9 @@ public class TimeSpan {
      */
     public void add(TimeSpan time) throws NullPointerException {
         Objects.requireNonNull(time, "Except: object is null");
-        this.seconds -= time.seconds;
-        this.minutes -= time.minutes;
-        this.hours   -= time.hours;
+        this.seconds += time.seconds;
+        this.minutes += time.minutes;
+        this.hours   += time.hours;
 
         normalizeTime();
     }
