@@ -63,7 +63,7 @@ public class TimeSpan {
     private void timestampToTime() {
         this.seconds = this.timestamp % 60;
         this.minutes = this.timestamp / 60 % 60;
-        this.hours = this.timestamp / 3600 % 3600 % 24;
+        this.hours = this.timestamp / 3600 / 3600 % 24;
     }
 
     public void add(TimeSpan timeSpan) {
@@ -72,6 +72,9 @@ public class TimeSpan {
     }
 
     public void subtract(TimeSpan timeSpan) {
+        if (this.timestamp < timeSpan.timestamp) {
+            throw new IllegalArgumentException("Нельзя вычесть из меньшего времени большее!");
+        }
         this.timestamp = this.timestamp - timeSpan.timestamp;
         timestampToTime();
     }
