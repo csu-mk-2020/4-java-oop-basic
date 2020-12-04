@@ -1,38 +1,35 @@
 package com.example.task04;
 
 public class Line {
-    private Point pnt1;
-    private Point pnt2;
+    final private Point p1;
+    final private Point p2;
 
-    Line(Point pnt1, Point pnt2) {
-        this.pnt1 = pnt1;
-        this.pnt2 = pnt2;
+    public Line(Point p1, Point p2) {
+        if (p1 == null){
+            throw new IllegalArgumentException("первый аргумент пуст");
+        }
+        if (p2 == null){
+            throw new IllegalArgumentException("второй аргумент пуст");
+        }
+        this.p1 = p1;
+        this.p2 = p2;
     }
 
-    public Point getPnt1() {
-        return pnt1;
+    public Point getP1() {
+        return p1;
     }
 
-    public Point getPnt2() {
-        return pnt2;
-    }
-
-    public void setPnt1(Point pnt1) {
-        this.pnt1 = pnt1;
-    }
-
-    public void setPnt2(Point pnt2) {
-        this.pnt2 = pnt2;
-    }
-
-    public String toString() {
-        return "[" + pnt1.toString() + ";" + pnt2.toString() + "]";
+    public Point getP2() {
+        return p2;
     }
 
     public boolean isCollinearLine(Point p) {
-        long y1 = (p.x - this.getPnt1().x) / (this.getPnt2().x - this.getPnt1().x);
-        long y2 = (p.y - this.getPnt1().y) / (this.getPnt2().y - this.getPnt1().y);
-        return y1 == y2;
+        if (p != null) {
+            return (p.x * (p2.y - p1.y) - p.y * (p2.x - p1.x) == p1.x * p2.y - p2.x * p1.y);
+        } else throw new IllegalArgumentException("аргумент пуст");
     }
 
+    public String toString() {
+        return p1.toString() + "->" + p2.toString();
+    }
 }
