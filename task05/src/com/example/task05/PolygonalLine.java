@@ -1,9 +1,17 @@
 package com.example.task05;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Ломаная линия
  */
 public class PolygonalLine {
+
+    private List<Point> points = new ArrayList<Point>();
+
+    PolygonalLine() {
+    }
 
     /**
      * Устанавливает точки ломаной линии
@@ -12,6 +20,12 @@ public class PolygonalLine {
      */
     public void setPoints(Point[] points) {
         // TODO: реализовать
+        if (points == null) {
+            throw new IllegalArgumentException();
+        }
+        for (Point pnt : points) {
+            this.points.add(new Point(pnt.getX(), pnt.getY()));
+        }
     }
 
     /**
@@ -21,6 +35,10 @@ public class PolygonalLine {
      */
     public void addPoint(Point point) {
         // TODO: реализовать
+        if (point == null) {
+            throw new NullPointerException();
+        }
+        this.points.add(new Point(point.getX(), point.getY()));
     }
 
     /**
@@ -31,6 +49,7 @@ public class PolygonalLine {
      */
     public void addPoint(double x, double y) {
         // TODO: реализовать
+        this.points.add(new Point(x, y));
     }
 
     /**
@@ -40,7 +59,11 @@ public class PolygonalLine {
      */
     public double getLength() {
         // TODO: реализовать
-        throw new AssertionError();
+        double lngth = 0;
+        for (int i = 0; i < points.size() - 1; i++) {
+            lngth += points.get(i).getLength(points.get(i + 1));
+        }
+        return lngth;
     }
 
 }
